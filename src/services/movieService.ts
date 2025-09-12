@@ -1,3 +1,4 @@
+// src/services/movieService.ts
 import axios from 'axios';
 import type { FetchMoviesResponse, MovieDetails } from '../types/movie';
 
@@ -11,21 +12,21 @@ const api = axios.create({
   },
 });
 
-// Пошук фільмів за запитом
-export async function fetchMovies(query: string): Promise<FetchMoviesResponse> {
+export async function fetchMovies(
+  query: string,
+  page: number = 1
+): Promise<FetchMoviesResponse> {
   const { data } = await api.get<FetchMoviesResponse>(
-    `/search/movie?query=${encodeURIComponent(query)}`
+    `/search/movie?query=${encodeURIComponent(query)}&page=${page}`
   );
   return data;
 }
 
-// Трендові фільми дня
 export async function fetchTrending(): Promise<FetchMoviesResponse> {
   const { data } = await api.get<FetchMoviesResponse>(`/trending/movie/day`);
   return data;
 }
 
-// Деталі конкретного фільму
 export async function fetchMovieDetails(
   movieId: number
 ): Promise<MovieDetails> {
@@ -33,7 +34,6 @@ export async function fetchMovieDetails(
   return data;
 }
 
-// URL постера чи бекдропу
 export function imageUrl(
   path: string | null,
   size: 'w200' | 'w500' | 'original' = 'w200'
