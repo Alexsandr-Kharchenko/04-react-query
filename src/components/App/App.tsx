@@ -59,7 +59,8 @@ export default function App() {
             <ReactPaginate
               pageCount={totalPages}
               pageRangeDisplayed={5}
-              marginPagesDisplayed={1}
+              marginPagesDisplayed={3}
+              breakLabel="…" // трикрапка
               onPageChange={handlePageChange}
               forcePage={page - 1}
               containerClassName={styles.pagination}
