@@ -11,7 +11,8 @@ import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import MovieModal from '../MovieModal/MovieModal';
 
 import { fetchMovies } from '../../services/movieService';
-import type { Movie, FetchMoviesResponse } from '../../types/movie';
+import type { Movie } from '../../types/movie';
+import type { FetchMoviesResponse } from '../../services/movieService';
 
 import styles from './App.module.css';
 
@@ -24,6 +25,7 @@ export default function App() {
     queryKey: ['movies', query, page],
     queryFn: () => fetchMovies(query, page),
     enabled: !!query,
+    placeholderData: prev => prev ?? undefined,
   });
 
   useEffect(() => {
@@ -60,7 +62,7 @@ export default function App() {
               pageCount={totalPages}
               pageRangeDisplayed={5}
               marginPagesDisplayed={3}
-              breakLabel="…" // трикрапка
+              breakLabel="…"
               onPageChange={handlePageChange}
               forcePage={page - 1}
               containerClassName={styles.pagination}

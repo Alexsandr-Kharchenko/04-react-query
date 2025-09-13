@@ -1,6 +1,6 @@
 // src/services/movieService.ts
 import axios from 'axios';
-import type { FetchMoviesResponse, MovieDetails } from '../types/movie';
+import type { Movie } from '../types/movie';
 
 const BASE_URL = 'https://api.themoviedb.org/3';
 
@@ -11,6 +11,18 @@ const api = axios.create({
     'Content-Type': 'application/json;charset=utf-8',
   },
 });
+
+export interface FetchMoviesResponse {
+  page: number;
+  results: Movie[];
+  total_pages: number;
+  total_results: number;
+}
+
+export interface MovieDetails extends Movie {
+  runtime: number;
+  genres: { id: number; name: string }[];
+}
 
 export async function fetchMovies(
   query: string,
